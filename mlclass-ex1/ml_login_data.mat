@@ -1,15 +1,15 @@
-# Created by Octave 3.8.1, Wed Jul 09 07:20:16 2014 PDT <bruce@Treble37>
+# Created by Octave 3.8.1, Sat Jul 12 10:08:10 2014 PDT <bruce@Treble37>
 # name: login
 # type: sq_string
 # elements: 1
-# length: 1
-n
+# length: 20
+brucepark0@gmail.com
 
 
 # name: password
 # type: sq_string
 # elements: 1
-# length: 1
-n
+# length: 10
+8d9efdMF2z
 
 
