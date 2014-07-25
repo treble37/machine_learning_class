@@ -23,7 +23,7 @@ grad = zeros(size(theta));
 h_theta = 1./(1+exp(-theta'*X'));
 size(y)
 size(h_theta)
-J = (1/m) * sum(log(h_theta)*-y + (log(1-h_theta)*(1-y));
+J = (1/m) * sum(log(h_theta)*-y + (log(1-h_theta)*(1-y)));
 
 
 
