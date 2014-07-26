@@ -17,8 +17,17 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+%size(h_theta) %= 118 x 1
+%size(X) %= 118 x 28
+%size(y) %= 118 x 1
+%size(theta) %= 28 x 1
+%size(grad) %= 28 x 1
 
-
+  h_theta = 1./(1+exp(-X*theta));
+  J = (1/m) * sum(-y.*log(h_theta) - (1-y).*(log(1-h_theta))) + lambda/(2*m)*sum(theta(2:end).^2);
+  grad(1,:) = sum((1/m)*(h_theta(1,:)-y(1,:)).*X(1,:));
+  grad(2:end,:) =  ((1/m)*(h_theta(2:end,:)-y(2:end,:))'*X(2:end,2:end))' + lambda/m*theta(2:end,:); 
+  theta = theta - grad;
 
 
 
