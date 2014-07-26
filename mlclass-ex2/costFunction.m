@@ -20,12 +20,16 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
-h_theta = 1./(1+exp(-theta'*X'));
-size(y)
-size(h_theta)
-J = (1/m) * sum(log(h_theta)*-y + (log(1-h_theta)*(1-y)));
+%size(h_theta) = 100 x 1
+%size(X) = 100 x 3
+%size(y) = 100 x 1
+%size(theta) = 3 x 1
+%size(grad) = 3 x 1
 
-
+  h_theta = 1./(1+exp(-X*theta));
+  J = (1/m) * -y.*log(h_theta) + (1-y).*(log(1-h_theta));
+  grad =  (1/m)*(h_theta-y)'*X; % 1 x 3
+  theta = theta - grad';
 
 % =============================================================
 
