@@ -25,8 +25,8 @@ grad = zeros(size(theta));
 
   h_theta = 1./(1+exp(-X*theta));
   J = (1/m) * sum(-y.*log(h_theta) - (1-y).*(log(1-h_theta))) + lambda/(2*m)*sum(theta(2:end).^2);
-  grad(1,:) = sum((1/m)*(h_theta(1,:)-y(1,:)).*X(1,:));
-  grad(2:end,:) =  ((1/m)*(h_theta(2:end,:)-y(2:end,:))'*X(2:end,2:end))' + lambda/m*theta(2:end,:); 
+  grad =  (1/m)*X'*(h_theta-y);
+  grad(2:end) = grad(2:end) + lambda/m*theta(2:end);
   theta = theta - grad;
 
 
