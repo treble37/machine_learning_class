@@ -27,7 +27,7 @@ grad = zeros(size(theta));
 %size(grad) = 3 x 1
 
   h_theta = 1./(1+exp(-X*theta));
-  J = (1/m) * -y.*log(h_theta) + (1-y).*(log(1-h_theta));
+  J = (1/m) * sum(-y.*log(h_theta) - (1-y).*(log(1-h_theta)));
   grad =  (1/m)*(h_theta-y)'*X; % 1 x 3
   theta = theta - grad';
 
