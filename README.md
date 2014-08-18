@@ -7,4 +7,4 @@ To submit via command line, start octave in the right directory
 
 Type "submit"
 
-Submit your choide
+Submit your choice
