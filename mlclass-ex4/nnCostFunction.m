@@ -39,6 +39,26 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %
+
+%size(Theta1) = 25 401
+%size(Theta2) = 10 26
+%size(Theta1_grad) = 25 401
+%size(Theta2_grad) = 10 26
+
+y_matrix = eye(num_labels)(y,:);
+a1 = [ones(m, 1) X];
+z2 = a1*Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m,1) a2];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+h_theta = a3;
+
+J = (1/m) * sum(sum(-y_matrix.*log(h_theta) - (1-y_matrix).*(log(1-h_theta)) ));
+%grad = (1/m)*X'*beta;
+%grad(2:end) = grad(2:end);
+%theta = theta - grad;
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -54,6 +74,13 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+
+reg_theta1 = lambda/(2*m)*sum(sum(Theta1(:,2:end).^2));
+reg_theta2 = lambda/(2*m)*sum(sum(Theta2(:,2:end).^2));
+
+J = J + reg_theta1 + reg_theta2;
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -62,12 +89,40 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+d3 = a3 - y_matrix;
+
+%size(d3) = 5000 10
+%size(Theta1) = 25 401
+%size(Theta2) = 10 26
+%size (sigmoidGradient(a2)) = 5000 26
+%size(sigmoidGradient(z2)) = 5000 25
+%size(sigmoidGradient(a1)) = 5000 401
+%size(a1) = 5000 401 
+%size(a2) = 5000 26
+
+d2 = (d3*Theta2(:,2:end)).*sigmoidGradient(z2);
+
+%size(d2) = 5000 25
+
+delta2 = d3'*a2;
+delta1 = d2'*a1;
+
+%size(delta2) = 10 26
+%size(delta1) = 25 401
+
+Theta2_grad = delta2/m;
+Theta1_grad = delta1/m;
+
+reg_theta1_grad = (lambda/m) * Theta1;
+reg_theta1_grad(:,1) = 0;
+reg_theta2_grad = (lambda/m) * Theta2;
+reg_theta2_grad(:,1) = 0;
+
+Theta1_grad = Theta1_grad + reg_theta1_grad;
+Theta2_grad = Theta2_grad + reg_theta2_grad;
 
 
-
-
-
-
+grad = [Theta1_grad(:); Theta2_grad(:) ];
 
 
 
